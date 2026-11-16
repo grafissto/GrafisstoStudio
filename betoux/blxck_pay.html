@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blxck Pay App - Caso de Estudio de Product Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =============================================
+         * CSS Variables — tema claro del producto
+         * ============================================= */
+        :root {
+            --font-1: "Public Sans", sans-serif;
+            --font-2: "DM Serif Display", serif;
+
+            /* Green & Black brand palette — PrimeTime */
+            --color-1: #22c55e;
+            /* verde principal */
+            --color-1-dark: #16a34a;
+            /* verde oscuro */
+            --color-1-light: #4ade80;
+            /* verde claro */
+            --color-1-glow: rgba(34, 197, 94, .2);
+
+            /* Backgrounds — dark */
+            --color-body: #0a120a;
+            /* negro muy oscuro */
+            --color-surface: #111c11;
+            /* negro oscuro con tinte verde */
+            --color-surface-2: #162416;
+            /* verde muy oscuro */
+
+            /* Text */
+            --color-white: #ffffff;
+            --color-gray-1: #e8f5e9;
+            /* blanco verdoso — títulos */
+            --color-gray-3: #a5d6a7;
+            /* verde claro — subtítulos */
+            --color-gray-5: #81c784;
+            /* verde medio */
+            --color-gray-7: #66bb6a;
+            --color-gray-9: #162416;
+            --color-text: #c8e6c9;
+            /* texto cuerpo */
+
+            --color-border: rgba(34, 197, 94, .18);
+            --max-width: 1200px;
+        }
+
+        /* =============================================
+         * RESET & BASE
+         * ============================================= */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-1);
+            font-size: 1.8rem;
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-body);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-2);
+            color: #e8f5e9;
+            line-height: 1.2;
+        }
+
+        section {
+            padding: 9rem 0;
+        }
+
+        section:nth-child(even) {
+            background: var(--color-surface);
+        }
+
+        /* =============================================
+         * CONTAINER
+         * ============================================= */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* =============================================
+         * HERO
+         * ============================================= */
+        .hero {
+            background-color: #050f05;
+            background-image: linear-gradient(135deg, rgba(34, 197, 94, .18) 0%, rgba(10, 18, 10, 0) 65%);
+            border-bottom: 1px solid rgba(34, 197, 94, .2);
+            padding: 12rem 0 10rem;
+            text-align: center;
+        }
+
+        .hero__eyebrow {
+            font-family: var(--font-1);
+            font-size: 1.2rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: #4ade80;
+            margin-bottom: 2.4rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 7vw, 8rem);
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        .hero .tagline {
+            font-family: var(--font-1);
+            font-size: 2rem;
+            color: #a7f3d0;
+            max-width: 65ch;
+            margin: 0 auto 5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4rem;
+            border-top: 1px solid rgba(34, 197, 94, .2);
+            padding-top: 4rem;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 1.1rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: #4ade80;
+            margin-bottom: .6rem;
+        }
+
+        .meta-value {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* =============================================
+         * SECTION HEADER
+         * ============================================= */
+        .section-title {
+            font-size: clamp(3rem, 4vw, 4.8rem);
+            margin-bottom: 1.2rem;
+            color: #e8f5e9;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-1);
+            font-size: 1.8rem;
+            color: var(--color-gray-5);
+            margin-bottom: 5rem;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+        }
+
+        /* =============================================
+         * OVERVIEW
+         * ============================================= */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .overview-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2.4rem;
+        }
+
+        .overview-img {
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid var(--color-border);
+            box-shadow: 0 4px 20px rgba(17, 24, 39, .12);
+            object-fit: cover;
+            display: block;
+        }
+
+        .overview-img-placeholder {
+            width: 100%;
+            min-height: 22rem;
+            border-radius: 12px;
+            border: 2px dashed rgba(17, 24, 39, .2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            background: var(--color-surface-2);
+            color: #374151;
+            font-family: var(--font-1);
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .overview-img-placeholder span {
+            font-size: 3.6rem;
+        }
+
+        .overview-content h3 {
+            font-size: 2.4rem;
+            margin: 3.2rem 0 1.2rem;
+            color: #4ade80;
+        }
+
+        .overview-content p {
+            font-size: 1.8rem;
+            color: var(--color-text);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .quote {
+            border-left: 3px solid #22c55e;
+            padding-left: 2.4rem;
+            margin: 3rem 0;
+            font-style: italic;
+            color: #a7f3d0;
+            font-size: 1.9rem;
+        }
+
+        /* =============================================
+         * STATS / KPI CARDS
+         * ============================================= */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat-card,
+        .kpi-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(34, 197, 94, .08);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .stat-card:hover,
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(34, 197, 94, .2);
+        }
+
+        .stat-number,
+        .kpi-value {
+            font-family: var(--font-2);
+            font-size: 4.2rem;
+            background: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: .8rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.4rem;
+            color: var(--color-gray-5);
+            font-weight: 500;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+            gap: 2.4rem;
+            margin-top: 4rem;
+        }
+
+        .kpi-card {
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #22c55e 0%, #4ade80 100%);
+        }
+
+        .kpi-label {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #4ade80;
+            margin-bottom: .8rem;
+        }
+
+        .kpi-description {
+            font-size: 1.5rem;
+            color: var(--color-gray-5);
+            line-height: 1.6;
+        }
+
+        /* =============================================
+         * RESEARCH
+         * ============================================= */
+        .research-findings {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 4rem;
+            box-shadow: 0 2px 12px rgba(17, 24, 39, .06);
+        }
+
+        .finding-item {
+            margin: 2.8rem 0;
+            padding-left: 2rem;
+            border-left: 3px solid;
+            border-image: linear-gradient(to bottom, #22c55e, #16a34a) 1;
+        }
+
+        .finding-item:first-child {
+            margin-top: 0;
+        }
+
+        .finding-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .finding-item h4 {
+            font-family: var(--font-1);
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #4ade80;
+            margin-bottom: 1rem;
+        }
+
+        .finding-item p,
+        .finding-item li {
+            font-size: 1.7rem;
+            color: var(--color-text);
+            line-height: 1.75;
+        }
+
+        .finding-item ul {
+            margin: 1rem 0 0 2rem;
+        }
+
+        .finding-item li {
+            margin-bottom: .4rem;
+        }
+
+        .highlight {
+            background: rgba(34, 197, 94, .18);
+            color: #22c55e;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* =============================================
+         * PROCESS STEPS
+         * ============================================= */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+            gap: 2.4rem;
+        }
+
+        .process-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 4rem 3.5rem 3.5rem;
+            position: relative;
+            box-shadow: 0 2px 12px rgba(17, 24, 39, .06);
+        }
+
+        .process-number {
+            position: absolute;
+            top: -1.6rem;
+            left: 3rem;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #ffffff;
+            width: 3.6rem;
+            height: 3.6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.4rem;
+            font-family: var(--font-1);
+        }
+
+        .process-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .process-card ul {
+            list-style: none;
+        }
+
+        .process-card li {
+            padding: .7rem 0 .7rem 2.4rem;
+            position: relative;
+            font-size: 1.6rem;
+            color: var(--color-text);
+        }
+
+        .process-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: 700;
+        }
+
+        /* =============================================
+         * FEATURE CARDS
+         * ============================================= */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.4rem;
+        }
+
+        .feature-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(17, 24, 39, .07);
+        }
+
+        .feature-header {
+            background: linear-gradient(135deg, rgba(34, 197, 94, .12) 0%, rgba(22, 163, 74, .06) 100%);
+            border-bottom: 1px solid rgba(34, 197, 94, .18);
+            padding: 2.4rem 3rem;
+        }
+
+        .feature-header h3 {
+            font-size: 2.2rem;
+            margin-bottom: .4rem;
+        }
+
+        .feature-header p {
+            font-size: 1.5rem;
+            color: var(--color-gray-5);
+        }
+
+        .feature-body {
+            padding: 3rem;
+        }
+
+        .feature-body h4 {
+            font-family: var(--font-1);
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #4ade80;
+            margin: 2.4rem 0 .8rem;
+        }
+
+        .feature-body h4:first-child {
+            margin-top: 0;
+        }
+
+        .feature-body p {
+            font-size: 1.6rem;
+            color: var(--color-text);
+            line-height: 1.7;
+        }
+
+        .justification {
+            background: rgba(34, 197, 94, .07);
+            border: 1px solid var(--color-border);
+            border-left: 3px solid #22c55e;
+            border-radius: 0 6px 6px 0;
+            padding: 1.6rem 2rem;
+            margin-top: 1.6rem;
+        }
+
+        .justification strong {
+            display: block;
+            color: #4ade80;
+            font-size: 1.4rem;
+            margin-bottom: .6rem;
+        }
+
+        .justification ul {
+            margin-left: 1.6rem;
+        }
+
+        .justification li {
+            font-size: 1.5rem;
+            color: var(--color-gray-5);
+            margin-bottom: .3rem;
+        }
+
+        /* =============================================
+         * IMPACT BANNER
+         * ============================================= */
+        .impact-section {
+            background: linear-gradient(135deg, rgba(34, 197, 94, .1) 0%, rgba(22, 163, 74, .05) 100%);
+            border: 1px solid rgba(34, 197, 94, .2);
+            border-radius: 8px;
+            padding: 5rem 4rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .impact-section h3 {
+            font-size: 3.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+            gap: 3rem;
+        }
+
+        .impact-item h4 {
+            font-size: 4.4rem;
+            background: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: .8rem;
+        }
+
+        .impact-item p {
+            font-size: 1.5rem;
+            color: var(--color-gray-5);
+        }
+
+        /* =============================================
+         * RESULTS INTRO
+         * ============================================= */
+        .results-intro {
+            font-size: 1.9rem;
+            color: var(--color-gray-5);
+            text-align: center;
+            max-width: 70ch;
+            margin: 0 auto 4rem;
+        }
+
+        /* =============================================
+         * TAKEAWAYS
+         * ============================================= */
+        .takeaway-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.4rem;
+        }
+
+        .takeaway-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 3.5rem;
+            box-shadow: 0 2px 12px rgba(17, 24, 39, .06);
+        }
+
+        .takeaway-card h3 {
+            font-family: var(--font-1);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .takeaway-card p {
+            font-size: 1.6rem;
+            color: var(--color-text);
+            line-height: 1.75;
+        }
+
+        /* =============================================
+         * FOOTER / CTA
+         * ============================================= */
+        footer {
+            background: #050f05;
+            border-top: 1px solid rgba(34, 197, 94, .2);
+            text-align: center;
+            padding: 8rem 3rem;
+        }
+
+        footer h2 {
+            font-size: 4rem;
+            margin-bottom: 1.6rem;
+            color: #ffffff;
+        }
+
+        footer p {
+            font-size: 1.9rem;
+            color: #9ca3af;
+            margin-bottom: 3.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #000000;
+            padding: 1.6rem 4.8rem;
+            border-radius: 3px;
+            font-family: var(--font-1);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            transition: opacity .25s ease, transform .25s ease;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, .3);
+        }
+
+        .cta-button:hover {
+            opacity: .88;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2.4rem;
+            font-size: 1.4rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #4ade80;
+            transition: color .25s;
+        }
+
+        .back-link:hover {
+            color: #86efac;
+        }
+
+        /* =============================================
+         * RESPONSIVE
+         * ============================================= */
+        @media (max-width: 900px) {
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 6rem 0;
+            }
+
+            .hero {
+                padding: 8rem 0 6rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid,
+            .takeaway-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-section {
+                padding: 3.5rem 2rem;
+            }
+        }
+
+        /* =============================================
+         * ANIMATIONS
+         * ============================================= */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1,
+        .hero .tagline,
+        .project-meta {
+            animation: fadeInUp .7s ease-out both;
+        }
+
+        .hero .tagline {
+            animation-delay: .15s;
+        }
+
+        .project-meta {
+            animation-delay: .3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <span class="hero__eyebrow">Product Design · Fintech / Inclusión Financiera</span>
+            <h1>Blxck Pay Débito Digital</h1>
+            <p class="tagline">Inclusión financiera para trabajadores temporales: seguridad, simplicidad y dignidad en
+                cada transacción</p>
+
+            <div class="project-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Industria</div>
+                    <div class="meta-value">Fintech / Inclusión Financiera</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Plataforma</div>
+                    <div class="meta-value">App Móvil iOS / Android</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Rol</div>
+                    <div class="meta-value">Product Designer</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Duración</div>
+                    <div class="meta-value">18 meses</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Resumen del Proyecto</h2>
+            </div>
+
+            <div class="overview-grid">
+                <div class="overview-content">
+                    <h3>El Contexto</h3>
+                    <p>Blxck Pay es una aplicación de tarjeta de débito diseñada para trabajadores temporales
+                        de México y Latinoamérica que laboran en Estados Unidos bajo programas H-2A y H-2B. La solución
+                        permite gestionar salarios, realizar transferencias internacionales y pagar en establecimientos
+                        comerciales con seguridad y dignidad.</p>
+
+                    <div class="quote">
+                        "Diseñamos una herramienta que no solo resuelve un problema financiero, sino que restaura la
+                        dignidad de trabajadores que enfrentaban discriminación al tramitar cuentas de banco en USA."
+                    </div>
+
+                    <h3>El Desafío Principal</h3>
+                    <p>La empresa empleadora enfrentaba un problema crítico: <strong style="color:#4ade80;">la
+                            duplicación de cheques de pago</strong>. Los trabajadores cobraban doble salario utilizando
+                        copias de sus cheques, y la compañía no tenía forma de verificar ni prevenir este fraude.</p>
+                    <p>Adicionalmente, los trabajadores enfrentaban discriminación en algunos comercios al pagar en
+                        efectivo,
+                        altas comisiones de Western Union, imposibilidad de abrir cuentas bancarias tradicionales y
+                        riesgo de robo al transportar efectivo.</p>
+                </div>
+
+                <div class="overview-right">
+                    <!-- IMAGEN: cambia este bloque por tu imagen real -->
+                    <img src="../assets/img/primetime01.png" alt="Blxck Pay Blackpay">
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">200K+</span>
+                            <div class="stat-label">Trabajadores impactados</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">80%</span>
+                            <div class="stat-label">Tasa de adopción de la app</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">100%</span>
+                            <div class="stat-label">Éxito en autenticación SMS</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">4.0★</span>
+                            <div class="stat-label">Calificación en tiendas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Investigación</h2>
+                <p class="section-subtitle">Entendiendo a los trabajadores temporales</p>
+            </div>
+
+            <!-- IMAGEN: cambia este bloque por tu imagen real -->
+            <img src="../assets/img/primetime02.png" alt="Blxck Pay Blackpay">
+
+            <div class="research-findings">
+                <div class="finding-item">
+                    <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.5rem">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg> Perfil del Usuario</h4>
+                    <p>Trabajadores mexicanos y latinoamericanos, principalmente hombres entre 25–50 años, empleados en
+                        fábricas, mantenimiento, jardinería y construcción. <span class="highlight">Nivel de
+                            alfabetización digital básico</span>, con experiencia limitada en aplicaciones bancarias.
+                    </p>
+                </div>
+
+                <div class="finding-item">
+                    <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.5rem">
+                            <line x1="18" y1="20" x2="18" y2="10" />
+                            <line x1="12" y1="20" x2="12" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="14" />
+                        </svg> Insights Clave</h4>
+                    <p>Investigación con usuarios reales reveló patrones críticos:</p>
+                    <ul>
+                        <li><span class="highlight">68%</span> no tenía cuenta bancaria en EE.UU. por falta de
+                            documentación</li>
+                        <li><span class="highlight">92%</span> enviaba dinero a sus familias mediante Western Union,
+                            pagando comisiones del 8–12%</li>
+                        <li><span class="highlight">76%</span> reportó haber sido tratado con desconfianza al pagar en
+                            efectivo en comercios</li>
+                        <li><span class="highlight">85%</span> expresó preocupación por la seguridad al transportar
+                            efectivo</li>
+                    </ul>
+                </div>
+
+                <div class="finding-item">
+                    <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.5rem">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg> User Persona: "Carlos"</h4>
+                    <p><strong style="color:#4ade80;">Carlos Mendoza</strong> — Trabajador agrícola temporal, 38 años,
+                        originario de Michoacán. Trabaja 8 meses al año en Oregon bajo visa H-2A, envía $1,500–2,000 USD
+                        mensuales a su familia en México, usa smartphone Android básico con WhatsApp y Facebook. No
+                        confía en bancos tradicionales por barreras de idioma y documentación.</p>
+                </div>
+
+                <div class="finding-item">
+                    <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.5rem">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                        </svg> Pregunta de Diseño</h4>
+                    <p><strong style="color:#4ade80;">¿Cómo podemos crear una experiencia financiera digital segura y
+                            sencilla para trabajadores temporales con baja alfabetización digital, que elimine el fraude
+                            de nómina, reduzca costos de remesas y restaure su dignidad en transacciones
+                            comerciales?</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESIGN PROCESS -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Proceso de Diseño</h2>
+                <p class="section-subtitle">Metodología Design Thinking en 18 meses</p>
+            </div>
+
+            <!-- IMAGEN: cambia este bloque por tu imagen real -->
+            <img src="../assets/img/primetime04.png" alt="Blxck Pay Blackpay">
+
+            <div class="process-steps">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <h3>Descubrimiento (3 meses)</h3>
+                    <ul>
+                        <li>Entrevistas con stakeholders y equipo de nómina</li>
+                        <li>Investigación de mercado fintech para migrantes</li>
+                        <li>Análisis de competencia: Western Union, bancos tradicionales</li>
+                        <li>Requisitos de cumplimiento: Mastercard, regulaciones US/MX</li>
+                        <li>Definición de MVP para aprobación de tarjeta</li>
+                    </ul>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <h3>Definición</h3>
+                    <ul>
+                        <li>Mapas de empatía y user personas</li>
+                        <li>User journey: activación hasta primera transferencia</li>
+                        <li>Arquitectura de información para baja alfabetización digital</li>
+                        <li>Flujos críticos: activación SMS, bloqueo de tarjeta, transferencias</li>
+                        <li>Definición de microcopys en español/inglés</li>
+                    </ul>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <h3>Desarrollo</h3>
+                    <ul>
+                        <li>Wireframes de baja fidelidad validados con usuarios</li>
+                        <li>Prototipos interactivos para testing de usabilidad</li>
+                        <li>Pruebas con 6 usuarios representativos del perfil objetivo</li>
+                        <li>Iteraciones basadas en feedback: simplificación de flujos</li>
+                        <li>Diseño de sistema de componentes post-MVP</li>
+                    </ul>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <h3>Entrega y Evolución</h3>
+                    <ul>
+                        <li>Handoff a desarrollo con especificaciones de seguridad</li>
+                        <li>Lanzamiento del MVP con rollout gradual desde 10%</li>
+                        <li>Ciclos de rediseño: tarjeta roja → blanca → verde/negra</li>
+                        <li>Creación de design system para escalabilidad</li>
+                        <li>Monitoreo de métricas y optimización continua</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">La Solución</h2>
+                <p class="section-subtitle">Características diseñadas para inclusión y seguridad</p>
+            </div>
+
+            <!-- IMAGEN: cambia este bloque por tu imagen real -->
+            <img src="../assets/img/primetime03.png" alt="Blxck Pay Blackpay" style="margin:0 auto;">
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg> Activación Segura</h3>
+                        <p>Verificación en dos pasos vía SMS</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Activación de Tarjeta con SMS</h4>
+                        <p>Flujo simplificado de 3 pasos: ingresar últimos 8 dígitos → recibir código por SMS →
+                            confirmar activación. Diseñado para usuarios con poca experiencia tecnológica.</p>
+                        <div class="justification">
+                            <strong>Decisión de UX:</strong>
+                            <ul>
+                                <li>Evitamos email por baja adopción en el perfil de usuario</li>
+                                <li>SMS tiene 98% de tasa de apertura vs 20% de email</li>
+                                <li>Código con 6 horas de efectividad que reduce la ansiedad del usuario</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                                <line x1="1" y1="10" x2="23" y2="10" />
+                            </svg> Gestión de Tarjeta</h3>
+                        <p>Control total en la palma de tu mano</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Visualización Protegida de Datos</h4>
+                        <p>Los primeros 12 dígitos y CVV están ocultos por defecto. El usuario dispone de un boton para
+                            ocultar o mostrar los datos de la tarjeta.</p>
+                        <div class="justification">
+                            <strong>Seguridad por diseño:</strong>
+                            <ul>
+                                <li>Principio de mínimo privilegio: solo muestra lo necesario</li>
+
+                                <li>Bloqueo de emergencia en máximo 3 toques</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg> Transferencias Internacionales</h3>
+                        <p>Envía dinero a México con tarifas reducidas</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Integración con Sistemas Bancarios US ↔ MX</h4>
+                        <p>Transferencias directas a cuentas mexicanas o retiro en puntos autorizados, con tarifas ~30%
+                            menores que Western Union y tipo de cambio competitivo.</p>
+                        <div class="justification">
+                            <strong>Impacto para el usuario:</strong>
+                            <ul>
+                                <li>Ahorro promedio de $40–60 USD mensuales en comisiones</li>
+                                <li>Transacción en menos de 2 minutos vs 30+ min en sucursal</li>
+                                <li>Disponibilidad 24/7 sin desplazamiento</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <line x1="18" y1="20" x2="18" y2="10" />
+                                <line x1="12" y1="20" x2="12" y2="4" />
+                                <line x1="6" y1="20" x2="6" y2="14" />
+                            </svg> Transparencia Financiera</h3>
+                        <p>Historial, estados de cuenta y recibos</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Historial de Transacciones Intuitivo</h4>
+                        <p>Lista cronológica con iconos reconocibles (comida, transporte, envío), montos en USD y MXN, y
+                            filtros por fecha/tipo. Diseñado para baja alfabetización financiera.</p>
+                        <div class="justification">
+                            <strong>Accesibilidad:</strong>
+                            <ul>
+                                <li>Iconografía universal + texto en español/inglés</li>
+
+                                <li>Modo offline con sincronización automática al recuperar conexión</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <circle cx="12" cy="12" r="3" />
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14" />
+                            </svg> Configuración y Seguridad</h3>
+                        <p>Control personalizado con protección robusta</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Gestión de Credenciales</h4>
+                        <p>Cambio de NIP y contraseña con validación en tiempo real, autenticación de dos factores para
+                            cambios críticos, y recuperación segura vía SMS.</p>
+                        <div class="justification">
+                            <strong>Prevención de errores:</strong>
+                            <ul>
+                                <li>Confirmación visual antes de aplicar cambios sensibles</li>
+                                <li>Mensajes de error constructivos en lenguaje sencillo</li>
+                                <li>Historial de cambios de seguridad para transparencia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg> Experiencia Bilingüe</h3>
+                        <p>Español e inglés con cambio instantáneo</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Selector de Idioma Accesible</h4>
+                        <p>Configuración visible desde el onboarding y accesible en cualquier momento. Todo el
+                            contenido, mensajes de error disponibles en ambos idiomas.</p>
+                        <div class="justification">
+                            <strong>Inclusión lingüística:</strong>
+                            <ul>
+                                <li>Evita barreras para usuarios con dominio limitado de inglés</li>
+                                <li>Reduce errores en transacciones críticas por malentendidos</li>
+                                <li>Refuerza confianza y sentido de pertenencia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Resultados e Impacto</h2>
+            </div>
+
+            <p class="results-intro">Métricas tras 18 meses de implementación y evolución del producto</p>
+
+            <div class="impact-section">
+                <h3>Impacto General del Producto</h3>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <h4>80%</h4>
+                        <p>Tasa de adopción de la app</p>
+                    </div>
+                    <div class="impact-item">
+                        <h4>100%</h4>
+                        <p>Éxito en autenticación SMS</p>
+                    </div>
+                    <div class="impact-item">
+                        <h4>4.0★</h4>
+                        <p>Calificación promedio</p>
+                    </div>
+                    <div class="impact-item">
+                        <h4>~30%</h4>
+                        <p>Ahorro vs Western Union</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-value">80%</span>
+                    <div class="kpi-label">Adopción de la Aplicación</div>
+                    <div class="kpi-description">Tras un rollout gradual desde 10% hasta 100%, el 80% adoptó la app como
+                        herramienta principal. El 20% restante prefirió usar solo la tarjeta física.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">0</span>
+                    <div class="kpi-label">Incidentes de Autenticación</div>
+                    <div class="kpi-description">Tasa de éxito del 100% en el flujo de activación y autenticación vía
+                        SMS, sin reportes de bloqueo por errores del sistema.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">~30%</span>
+                    <div class="kpi-label">Ahorro en Comisiones vs Western Union</div>
+                    <div class="kpi-description">Los usuarios ahorran entre $40–60 USD mensuales en tarifas de envío de
+                        remesas, mejorando su capacidad de apoyo familiar.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">2 min</span>
+                    <div class="kpi-label">Tiempo por Transferencia</div>
+                    <div class="kpi-description">De 30+ minutos en sucursales físicas a menos de 2 minutos desde la app,
+                        disponible 24/7 sin necesidad de desplazamiento.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">90 días</span>
+                    <div class="kpi-label">Tiempo de Desarrollo del MVP</div>
+                    <div class="kpi-description">Entrega del producto mínimo viable en 3 meses para obtener aprobación
+                        de Mastercard, priorizando flujos críticos.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">3</span>
+                    <div class="kpi-label">Iteraciones de Diseño Post-MVP</div>
+                    <div class="kpi-description">Ciclos de ~8 meses para lanzar variantes de tarjeta (roja, blanca,
+                        verde/negra) con mejoras basadas en feedback de usuarios.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">100%</span>
+                    <div class="kpi-label">Cumplimiento de Seguridad</div>
+                    <div class="kpi-description">Aprobación en primera instancia de auditorías de seguridad y
+                        cumplimiento normativo, habilitando el lanzamiento comercial sin retrasos.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">4.0★</span>
+                    <div class="kpi-label">Satisfacción del Usuario</div>
+                    <div class="kpi-description">Calificación promedio en tiendas, con comentarios positivos sobre
+                        simplicidad, seguridad y ahorro en comisiones de envío.</div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIOS -->
+            <div style="margin-top:5rem;">
+                <h3 style="text-align:center;margin-bottom:3rem;color:#e8f5e9;font-size:3rem;">Historias de Impacto</h3>
+
+                <div
+                    style="background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid #22c55e;border-radius:8px;padding:3.5rem 4rem;margin-bottom:2.4rem;box-shadow:0 2px 12px rgba(34,197,94,.06);">
+                    <p style="font-size:3.6rem;color:#22c55e;line-height:1;opacity:.5;">"</p>
+                    <p style="font-size:1.8rem;color:var(--color-text);line-height:1.8;margin:1rem 0;">Antes tenía que
+                        hacer fila dos horas en Western Union cada mes para mandar dinero a mi esposa. Ahora lo hago
+                        desde mi cama en 5 minutos, y me sobra para comprar algo para los niños.</p>
+                    <p style="font-weight:700;color:#4ade80;margin-top:1.5rem;">— Carlos M., trabajador agrícola en
+                        Oregon</p>
+                    <p style="font-size:1.4rem;color:var(--color-gray-5);">Usuario desde 2023</p>
+                </div>
+
+                <div
+                    style="background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid #22c55e;border-radius:8px;padding:3.5rem 4rem;margin-bottom:2.4rem;box-shadow:0 2px 12px rgba(34,197,94,.06);">
+                    <p style="font-size:3.6rem;color:#22c55e;line-height:1;opacity:.5;">"</p>
+                    <p style="font-size:1.8rem;color:var(--color-text);line-height:1.8;margin:1rem 0;">En el
+                        supermercado ya no me miran raro cuando pago. Con la tarjeta es como cualquiera, y además veo en
+                        el celular a dónde se fue mi dinero. Me siento más tranquilo.</p>
+                    <p style="font-weight:700;color:#4ade80;margin-top:1.5rem;">— Luis R., empleado de mantenimiento en
+                        Texas</p>
+                    <p style="font-size:1.4rem;color:var(--color-gray-5);">Usuario desde 2022</p>
+                </div>
+
+                <div
+                    style="background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid #22c55e;border-radius:8px;padding:3.5rem 4rem;box-shadow:0 2px 12px rgba(34,197,94,.06);">
+                    <p style="font-size:3.6rem;color:#22c55e;line-height:1;opacity:.5;">"</p>
+                    <p style="font-size:1.8rem;color:var(--color-text);line-height:1.8;margin:1rem 0;">Como empleador,
+                        reducir la duplicación de cheques fue crítico para nuestra operación. La app nos dio visibilidad
+                        en tiempo real y eliminó un problema que nos costaba miles de dólares al año.</p>
+                    <p style="font-weight:700;color:#4ade80;margin-top:1.5rem;">— Equipo de Nómina, Empresa Contratante
+                    </p>
+                    <p style="font-size:1.4rem;color:var(--color-gray-5);">Stakeholder del proyecto</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAKEAWAYS -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Aprendizajes</h2>
+                <p class="section-subtitle">Lecciones de diseño para inclusión financiera</p>
+            </div>
+
+            <div class="takeaway-grid">
+                <div class="takeaway-card">
+                    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.6rem">
+                            <circle cx="12" cy="12" r="10" />
+                            <circle cx="12" cy="12" r="6" />
+                            <circle cx="12" cy="12" r="2" />
+                        </svg> Design System Primero</h3>
+                    <p>Por presión de tiempo desarrollamos el MVP sin un sistema de diseño formal, lo que generó
+                        inconsistencias en iteraciones posteriores. La próxima vez: definir tokens, componentes y
+                        microcopys desde la fase de descubrimiento.</p>
+                </div>
+                <div class="takeaway-card">
+                    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.6rem">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg> Seguridad desde el Wireframe</h3>
+                    <p>Los requisitos de seguridad financiera son fundamentales. Deben integrarse en la
+                        arquitectura de información desde el primer boceto, colaborando estrechamente con el equipo de
+                        compliance.</p>
+                </div>
+                <div class="takeaway-card">
+                    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.6rem">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg> Testing con Usuarios Reales</h3>
+                    <p>Probar con usuarios que representan el perfil real (baja alfabetización digital, contexto en
+                        exteriores) reveló problemas que no hubiéramos detectado con testers internos.</p>
+                </div>
+                <div class="takeaway-card">
+                    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.6rem">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="2" y1="12" x2="22" y2="12" />
+                            <path
+                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                        </svg> Inclusión es Detalle</h3>
+                    <p>Pequeñas decisiones de diseño tienen gran impacto en inclusión: iconos universales, lenguaje
+                        sencillo, contraste alto, modo offline. Diseñar para los usuarios con más barreras beneficia a
+                        todos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <h2>¿Quieres saber más?</h2>
+            <p>Estoy disponible para discutir este proyecto y oportunidades de diseño</p>
+            <a href="https://wa.me/525520389629?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20tu%20trabajo"
+                class="cta-button" target="_blank" rel="noopener">Contáctame</a>
+            <br>
+            <a href="../index.html#proyectos" class="back-link">← Volver al Portafolio</a>
+        </div>
+    </footer>
+
+</body>

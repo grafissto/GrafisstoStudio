@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banquet Planner - Caso de Estudio de Product Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =============================================
+         * CSS Variables — tema claro del producto
+         * ============================================= */
+        :root {
+            --font-1: "Public Sans", sans-serif;
+            --font-2: "DM Serif Display", serif;
+
+            /* Purple brand palette — light mode */
+            --color-1: #7c3aed;
+            /* accent purple */
+            --color-1-dark: #5b21b6;
+            /* darker purple */
+            --color-1-light: #a78bfa;
+            /* lighter purple */
+            --color-1-glow: rgba(124, 58, 237, .15);
+
+            /* Backgrounds — light */
+            --color-body: #f5f0ff;
+            /* lavanda muy claro */
+            --color-surface: #ffffff;
+            /* blanco puro */
+            --color-surface-2: #ede9fe;
+            /* lavanda suave */
+
+            /* Text */
+            --color-white: #ffffff;
+            --color-gray-1: #1e1b4b;
+            /* indigo oscuro — títulos */
+            --color-gray-3: #3730a3;
+            /* indigo medio */
+            --color-gray-5: #6d28d9;
+            /* violeta */
+            --color-gray-7: #7c3aed;
+            --color-gray-9: #ede9fe;
+            --color-text: #4c3d6c;
+            /* texto cuerpo */
+
+            --color-border: rgba(124, 58, 237, .15);
+            --max-width: 1200px;
+        }
+
+        /* =============================================
+         * RESET & BASE
+         * ============================================= */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-1);
+            font-size: 1.8rem;
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-body);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-2);
+            color: #1e1b4b;
+            line-height: 1.2;
+        }
+
+        section {
+            padding: 9rem 0;
+        }
+
+        /* Alternating section background */
+        section:nth-child(even) {
+            background: var(--color-surface);
+        }
+
+        /* =============================================
+         * CONTAINER
+         * ============================================= */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* =============================================
+         * HERO
+         * ============================================= */
+        .hero {
+            background-color: #ede9fe;
+            background-image: linear-gradient(135deg, rgba(124, 58, 237, .25) 0%, rgba(245, 240, 255, 0) 65%);
+            border-bottom: 1px solid var(--color-border);
+            padding: 12rem 0 10rem;
+            text-align: center;
+        }
+
+        .hero__eyebrow {
+            font-family: var(--font-1);
+            font-size: 1.2rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--color-1);
+            margin-bottom: 2.4rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 7vw, 8rem);
+            margin-bottom: 2rem;
+            color: #1e1b4b;
+        }
+
+        .hero .tagline {
+            font-family: var(--font-1);
+            font-size: 2rem;
+            color: #4c3d6c;
+            max-width: 65ch;
+            margin: 0 auto 5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4rem;
+            border-top: 1px solid var(--color-border);
+            padding-top: 4rem;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 1.1rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--color-gray-5);
+            margin-bottom: .6rem;
+        }
+
+        .meta-value {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1e1b4b;
+        }
+
+        /* =============================================
+         * SECTION HEADER
+         * ============================================= */
+        .section-title {
+            font-size: clamp(3rem, 4vw, 4.8rem);
+            margin-bottom: 1.2rem;
+            color: #1e1b4b;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-1);
+            font-size: 1.8rem;
+            color: var(--color-gray-5);
+            margin-bottom: 5rem;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+        }
+
+        /* =============================================
+         * OVERVIEW
+         * ============================================= */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .overview-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2.4rem;
+        }
+
+        .overview-img {
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid var(--color-border);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, .12);
+            object-fit: cover;
+            display: block;
+            /* Quita esto cuando pongas tu imagen real: */
+            min-height: 22rem;
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+        }
+
+        /* Placeholder visible cuando no hay imagen src */
+        .overview-img-placeholder {
+            width: 100%;
+            min-height: 22rem;
+            border-radius: 12px;
+            border: 2px dashed rgba(124, 58, 237, .35);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            background: linear-gradient(135deg, #f5f0ff 0%, #ede9fe 100%);
+            color: #7c3aed;
+            font-family: var(--font-1);
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .overview-img-placeholder span {
+            font-size: 3.6rem;
+        }
+
+        .overview-content h3 {
+            font-size: 2.4rem;
+            margin: 3.2rem 0 1.2rem;
+            color: #1e1b4b;
+        }
+
+        .overview-content p {
+            font-size: 1.8rem;
+            color: var(--color-text);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .quote {
+            border-left: 3px solid var(--color-1);
+            padding-left: 2.4rem;
+            margin: 3rem 0;
+            font-style: italic;
+            color: var(--color-gray-3);
+            font-size: 1.9rem;
+        }
+
+        /* =============================================
+         * STATS / KPI CARDS
+         * ============================================= */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat-card,
+        .kpi-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(124, 58, 237, .08);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .stat-card:hover,
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, .18);
+        }
+
+        .stat-number,
+        .kpi-value {
+            font-family: var(--font-2);
+            font-size: 4.2rem;
+            background: linear-gradient(135deg, var(--color-1) 0%, var(--color-1-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: .8rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.4rem;
+            color: var(--color-gray-5);
+            font-weight: 500;
+        }
+
+        /* KPI cards — full-width grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+            gap: 2.4rem;
+            margin-top: 4rem;
+        }
+
+        .kpi-card {
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1-light) 100%);
+        }
+
+        .kpi-label {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1e1b4b;
+            margin-bottom: .8rem;
+        }
+
+        .kpi-description {
+            font-size: 1.5rem;
+            color: var(--color-gray-5);
+            line-height: 1.6;
+        }
+
+        /* =============================================
+         * RESEARCH
+         * ============================================= */
+        .research-findings {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 4rem;
+            box-shadow: 0 2px 12px rgba(124, 58, 237, .07);
+        }
+
+        .finding-item {
+            margin: 2.8rem 0;
+            padding-left: 2rem;
+            border-left: 3px solid;
+            border-image: linear-gradient(to bottom, var(--color-1), var(--color-1-light)) 1;
+        }
+
+        .finding-item:first-child {
+            margin-top: 0;
+        }
+
+        .finding-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .finding-item h4 {
+            font-family: var(--font-1);
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #1e1b4b;
+            margin-bottom: 1rem;
+        }
+
+        .finding-item p,
+        .finding-item li {
+            font-size: 1.7rem;
+            color: var(--color-text);
+            line-height: 1.75;
+        }
+
+        .finding-item ul {
+            margin: 1rem 0 0 2rem;
+        }
+
+        .finding-item li {
+            margin-bottom: .4rem;
+        }
+
+        .highlight {
+            background: rgba(124, 58, 237, .12);
+            color: #5b21b6;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* =============================================
+         * PROCESS STEPS
+         * ============================================= */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+            gap: 2.4rem;
+        }
+
+        .process-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 4rem 3.5rem 3.5rem;
+            position: relative;
+            box-shadow: 0 2px 12px rgba(124, 58, 237, .07);
+        }
+
+        .process-number {
+            position: absolute;
+            top: -1.6rem;
+            left: 3rem;
+            background: linear-gradient(135deg, var(--color-1) 0%, var(--color-1-light) 100%);
+            color: var(--color-white);
+            width: 3.6rem;
+            height: 3.6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.4rem;
+            font-family: var(--font-1);
+        }
+
+        .process-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .process-card ul {
+            list-style: none;
+        }
+
+        .process-card li {
+            padding: .7rem 0 .7rem 2.4rem;
+            position: relative;
+            font-size: 1.6rem;
+            color: var(--color-text);
+        }
+
+        .process-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-1);
+            font-weight: 700;
+        }
+
+        /* =============================================
+         * FEATURE CARDS
+         * ============================================= */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.4rem;
+        }
+
+        .feature-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(124, 58, 237, .08);
+        }
+
+        .feature-header {
+            background: linear-gradient(135deg, rgba(155, 93, 229, .2) 0%, rgba(192, 132, 252, .08) 100%);
+            border-bottom: 1px solid rgba(155, 93, 229, .2);
+            padding: 2.4rem 3rem;
+        }
+
+        .feature-header h3 {
+            font-size: 2.2rem;
+            margin-bottom: .4rem;
+        }
+
+        .feature-header p {
+            font-size: 1.5rem;
+            color: var(--color-gray-5);
+        }
+
+        .feature-body {
+            padding: 3rem;
+        }
+
+        .feature-body h4 {
+            font-family: var(--font-1);
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #1e1b4b;
+            margin: 2.4rem 0 .8rem;
+        }
+
+        .feature-body h4:first-child {
+            margin-top: 0;
+        }
+
+        .feature-body p {
+            font-size: 1.6rem;
+            color: var(--color-text);
+            line-height: 1.7;
+        }
+
+        .justification {
+            background: #f5f0ff;
+            border: 1px solid var(--color-border);
+            border-left: 3px solid var(--color-1-light);
+            border-radius: 0 6px 6px 0;
+            padding: 1.6rem 2rem;
+            margin-top: 1.6rem;
+        }
+
+        .justification strong {
+            display: block;
+            color: #1e1b4b;
+            font-size: 1.4rem;
+            margin-bottom: .6rem;
+        }
+
+        .justification ul {
+            margin-left: 1.6rem;
+        }
+
+        .justification li {
+            font-size: 1.5rem;
+            color: var(--color-gray-5);
+            margin-bottom: .3rem;
+        }
+
+        /* =============================================
+         * CONSIDERATIONS
+         * ============================================= */
+        .consideration-item {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 3.5rem 4rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(124, 58, 237, .07);
+        }
+
+        .consideration-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .consideration-item h3 {
+            font-size: 2rem;
+            margin-bottom: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+        }
+
+        .icon {
+            width: 3.8rem;
+            height: 3.8rem;
+            background: linear-gradient(135deg, var(--color-1) 0%, var(--color-1-light) 100%);
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .consideration-item p {
+            font-size: 1.7rem;
+            color: #4c3d6c;
+            line-height: 1.8;
+        }
+
+        .consideration-item strong {
+            color: #1e1b4b;
+        }
+
+        /* =============================================
+         * IMPACT BANNER
+         * ============================================= */
+        .impact-section {
+            background: linear-gradient(135deg, rgba(123, 47, 224, .22) 0%, rgba(155, 93, 229, .1) 100%);
+            border: 1px solid rgba(155, 93, 229, .25);
+            border-radius: 8px;
+            padding: 5rem 4rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .impact-section h3 {
+            font-size: 3.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+            gap: 3rem;
+        }
+
+        .impact-item h4 {
+            font-size: 4.4rem;
+            background: linear-gradient(135deg, var(--color-1) 0%, var(--color-1-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: .8rem;
+        }
+
+        .impact-item p {
+            font-size: 1.5rem;
+            color: var(--color-gray-3);
+        }
+
+        /* =============================================
+         * RESULTS INTRO
+         * ============================================= */
+        .results-intro {
+            font-size: 1.9rem;
+            color: var(--color-gray-5);
+            text-align: center;
+            max-width: 70ch;
+            margin: 0 auto 4rem;
+        }
+
+        /* =============================================
+         * TAKEAWAYS
+         * ============================================= */
+        .takeaway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+            gap: 2.4rem;
+        }
+
+        .takeaway-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 3.5rem;
+            box-shadow: 0 2px 12px rgba(124, 58, 237, .07);
+        }
+
+        .takeaway-card h3 {
+            font-family: var(--font-1);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .takeaway-card p {
+            font-size: 1.6rem;
+            color: var(--color-text);
+            line-height: 1.75;
+        }
+
+        /* =============================================
+         * NEXT STEPS
+         * ============================================= */
+        .next-steps-title {
+            font-size: 3rem;
+            text-align: center;
+            margin: 5rem 0 2.4rem;
+        }
+
+        .next-steps-list {
+            list-style: none;
+        }
+
+        .next-steps-list li {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 2rem 2.8rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.6rem;
+            font-size: 1.7rem;
+            color: #4c3d6c;
+            box-shadow: 0 1px 6px rgba(124, 58, 237, .06);
+            transition: border-color .25s, box-shadow .25s;
+        }
+
+        .next-steps-list li:hover {
+            border-color: rgba(155, 93, 229, .4);
+        }
+
+        .next-steps-list li::before {
+            content: "→";
+            color: var(--color-1);
+            font-weight: 700;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        /* =============================================
+         * FOOTER / CTA
+         * ============================================= */
+        footer {
+            background: #ede9fe;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            padding: 8rem 3rem;
+        }
+
+        footer h2 {
+            font-size: 4rem;
+            margin-bottom: 1.6rem;
+            color: #1e1b4b;
+        }
+
+        footer p {
+            font-size: 1.9rem;
+            color: #4c3d6c;
+            margin-bottom: 3.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-1) 0%, var(--color-1-dark) 100%);
+            color: var(--color-white);
+            padding: 1.6rem 4.8rem;
+            border-radius: 3px;
+            font-family: var(--font-1);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            transition: opacity .25s ease, transform .25s ease;
+            box-shadow: 0 6px 24px rgba(123, 47, 224, .35);
+        }
+
+        .cta-button:hover {
+            opacity: .88;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2.4rem;
+            font-size: 1.4rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--color-gray-5);
+            transition: color .25s;
+        }
+
+        .back-link:hover {
+            color: var(--color-1-light);
+        }
+
+        /* =============================================
+         * RESPONSIVE
+         * ============================================= */
+        @media (max-width: 900px) {
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 6rem 0;
+            }
+
+            .hero {
+                padding: 8rem 0 6rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-section {
+                padding: 3.5rem 2rem;
+            }
+
+            .consideration-item {
+                padding: 2.8rem;
+            }
+        }
+
+        /* =============================================
+         * ANIMATIONS
+         * ============================================= */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1,
+        .hero .tagline,
+        .project-meta {
+            animation: fadeInUp .7s ease-out both;
+        }
+
+        .hero .tagline {
+            animation-delay: .15s;
+        }
+
+        .project-meta {
+            animation-delay: .3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <span class="hero__eyebrow">Product Design · Desarrollo de App</span>
+            <h1>Banquet Planner</h1>
+            <p class="tagline">Administrar eventos, fiestas y banquetes nunca fue tan fácil</p>
+
+            <div class="project-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Industria</div>
+                    <div class="meta-value">Banquetes y Eventos</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Plataforma</div>
+                    <div class="meta-value">Web y App Móvil</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Rol</div>
+                    <div class="meta-value">Product Designer</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Duración</div>
+                    <div class="meta-value">6 meses</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Resumen del Proyecto</h2>
+            </div>
+
+            <div class="overview-grid">
+                <div class="overview-content">
+                    <h3>Antecedentes</h3>
+                    <p>Banquet Planner es una plataforma diseñada para organizar y gestionar salones de banquetes,
+                        jardines de eventos, excursiones y cualquier otro tipo de celebración. Fue creada para una
+                        startup mexicana especializada en banquetes y eventos sociales.</p>
+
+                    <div class="quote">
+                        "Las funciones principales de este producto son: proyectar el flujo de efectivo, imprimir
+                        contratos y recibos, y organizar todo lo necesario para crear un evento: música, bebidas, comida
+                        y mucho más."
+                    </div>
+
+                    <h3>El Desafío</h3>
+                    <p>Una empresa en crecimiento enfrentaba desafíos administrativos y logísticos que afectaban
+                        principalmente su perspectiva financiera, la gestión de pagos y la organización de eventos.</p>
+                    <p>La misión era crear una herramienta administrativa que se comunicara con el equipo de ventas y
+                        proporcionara control total sobre pagos, contratos y servicios ofrecidos por el salón de
+                        eventos.</p>
+                </div>
+
+                <div class="overview-right">
+
+                    <img src="../assets/img/bp_01.png" alt="Banquet Planner">
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">65%</span>
+                            <div class="stat-label">Menos tiempo en gestión administrativa</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">85%</span>
+                            <div class="stat-label">Reducción en errores de pago</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">89%</span>
+                            <div class="stat-label">Más rápido en generación de contratos</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">82/100</span>
+                            <div class="stat-label">Puntuación SUS (Usabilidad)</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Investigación</h2>
+                <p class="section-subtitle">Entendiendo el problema a fondo</p>
+            </div>
+
+            <!-- IMAGEN: cambia este bloque por tu imagen real -->
+            <img src="../assets/img/app.jpg" alt="Banquet Planner">
+            <br>
+
+            <div class="research-findings">
+                <div class="finding-item">
+                    <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.5rem">
+                            <line x1="18" y1="20" x2="18" y2="10" />
+                            <line x1="12" y1="20" x2="12" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="14" />
+                        </svg> Investigación Secundaria</h4>
+                    <p>Analizamos las herramientas existentes de gestión de eventos y descubrimos que <span
+                            class="highlight">el 73% de los organizadores</span> usaban múltiples sistemas desconectados
+                        (Excel, WhatsApp, correo) para gestionar sus eventos, lo que generaba errores y pérdida de
+                        información.</p>
+                </div>
+
+                <div class="finding-item">
+                    <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.5rem">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg> Entrevistas con Usuarios</h4>
+                    <p>Entrevistamos a 15 organizadores de eventos y dueños de salones de banquetes. Los hallazgos clave
+                        fueron:</p>
+                    <ul>
+                        <li><span class="highlight">60%</span> reportó dificultades para hacer seguimiento de pagos</li>
+                        <li><span class="highlight">80%</span> mencionó que la generación manual de contratos les tomaba
+                            más de 1 hora</li>
+                        <li><span class="highlight">90%</span> expresó preocupación por la falta de visibilidad del
+                            flujo de efectivo</li>
+                    </ul>
+                </div>
+
+                <div class="finding-item">
+                    <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.5rem">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                        </svg> Cuestionarios</h4>
+                    <p>Enviamos 150 cuestionarios en línea y obtuvimos 127 respuestas. <span class="highlight">El
+                            45%</span> de los participantes dedicaba más de 20 horas semanales a tareas administrativas
+                        manuales, y <span class="highlight">el 35%</span> reportó haber perdido al menos un evento por
+                        errores de coordinación.</p>
+                </div>
+
+                <div class="finding-item">
+                    <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.5rem">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg> Pregunta de Diseño</h4>
+                    <p><strong style="color: #3b0764;">¿Cómo podemos crear una herramienta digital que ayude a la
+                            administración completa de eventos
+                            para que los organizadores puedan enfocarse en crear experiencias memorables en lugar de
+                            perderse en papeleo?</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESIGN PROCESS -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Proceso de Diseño</h2>
+                <p class="section-subtitle">De la investigación a la solución</p>
+            </div>
+
+            <!-- IMAGEN: cambia este bloque por tu imagen real -->
+            <img src="../assets/img/app03.jpg" alt="Banquet Planner">
+            <br>
+
+            <div class="process-steps">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <h3>Descubrimiento</h3>
+                    <ul>
+                        <li>Entrevistas con stakeholders</li>
+                        <li>Investigación de mercado</li>
+                        <li>Análisis competitivo</li>
+                        <li>Análisis de operaciones</li>
+                        <li>Mapeo del viaje del usuario</li>
+                    </ul>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <h3>Definición</h3>
+                    <ul>
+                        <li>Mapas de empatía</li>
+                        <li>Personas de usuario</li>
+                        <li>Declaración del problema</li>
+                        <li>Mapas de experiencia de usuario</li>
+                        <li>Arquitectura de información</li>
+                    </ul>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <h3>Desarrollo</h3>
+                    <ul>
+                        <li>Card sorting (funcionalidades)</li>
+                        <li>Flujos de usuario</li>
+                        <li>Wireframes</li>
+                        <li>Prototipado</li>
+                        <li>Pruebas de usabilidad</li>
+                    </ul>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <h3>Entrega</h3>
+                    <ul>
+                        <li>Diseño UI de alta fidelidad</li>
+                        <li>Sistema de diseño</li>
+                        <li>Prototipos interactivos</li>
+                        <li>Entrega a desarrollo</li>
+                        <li>Pruebas UX y mejoras</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">La Solución</h2>
+                <p class="section-subtitle">Áreas principales de la solución</p>
+            </div>
+
+            <!-- IMAGEN: cambia este bloque por tu imagen real -->
+            <img src="../assets/img/app04.jpg" alt="Banquet Planner">
+            <br>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg> Gestión Financiera</h3>
+                        <p>Control total de pagos y flujo de efectivo</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Proyección de Flujo de Efectivo</h4>
+                        <p>Visualización en tiempo real de ingresos y egresos proyectados para los próximos 6 meses.</p>
+                        <div class="justification">
+                            <strong>Impacto:</strong>
+                            <ul>
+                                <li>40% más de eficiencia en el cobro de servicios</li>
+                                <li>25% de reducción en pagos pendientes</li>
+                                <li>50% más visibilidad en proyecciones</li>
+                            </ul>
+                        </div>
+                        <h4>Seguimiento de Pagos</h4>
+                        <p>Registro automático de quién recibió pagos, recordatorios automáticos y conciliación en
+                            tiempo real.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                                <polyline points="10 9 9 9 8 9" />
+                            </svg> Automatización Documental</h3>
+                        <p>Contratos y recibos en minutos</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Generación de Contratos</h4>
+                        <p>Plantillas personalizables que generan contratos profesionales en menos de 5 minutos.</p>
+                        <div class="justification">
+                            <strong>Impacto:</strong>
+                            <ul>
+                                <li>89% más rápido (de 45 min a 5 min)</li>
+                                <li>100% consistente en información</li>
+                                <li>Reducción del 90% en errores y capacidad de edicion en cualquier momento</li>
+                            </ul>
+                        </div>
+                        <h4>Recibos Automáticos</h4>
+                        <p>Generación de recibos con historial tras confirmar pagos.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg> Organización de Eventos</h3>
+                        <p>Todo lo que necesitas en un solo lugar</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Creador Wizard de eventos</h4>
+                        <p>Coordina música, comida, bebidas, decoración y todos los servicios adicionales desde un solo
+                            módulo.</p>
+                        <div class="justification">
+                            <strong>Impacto:</strong>
+                            <ul>
+                                <li>Coordinación y actualización de costos 3 veces más rápida</li>
+                                <li>70% menos errores de coordinación</li>
+                                <li>Actualización instantanea en costos y servicios gestionados por evento</li>
+                            </ul>
+                        </div>
+                        <h4>Calendario Inteligente</h4>
+                        <p>Visualización clara de todos los eventos, disponibilidad de salones y reducción de conflictos
+                            de agenda.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align:middle;margin-right:.6rem">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                                <line x1="12" y1="18" x2="12.01" y2="18" />
+                            </svg> Plataforma Conectada</h3>
+                        <p>Web + App sincronizadas</p>
+                    </div>
+                    <div class="feature-body">
+                        <h4>Integración vía API</h4>
+                        <p>Plataforma web vinculada a app móvil vía API para mantener a todo el equipo conectado y
+                            actualizado.</p>
+                        <div class="justification">
+                            <strong>Impacto:</strong>
+                            <ul>
+                                <li>Acceso en tiempo real desde cualquier dispositivo</li>
+                                <li>90% de retención de usuarios activos</li>
+                                <li>Actualización instantanea en eventos y servicios gestionada por los integrantes del
+                                    equipo</li>
+
+                            </ul>
+                        </div>
+                        <h4>Acceso Multi-rol</h4>
+                        <p>Cada miembro del equipo tiene acceso a pagos, tickets y actualizaciones según su rol.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- RESULTS -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Resultados e Impacto</h2>
+            </div>
+
+            <p class="results-intro">Métricas reales después de 6 meses de implementación</p>
+
+            <div class="impact-section">
+                <h3>Impacto General del Producto</h3>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <h4>65%</h4>
+                        <p>Menos tiempo en administración</p>
+                    </div>
+                    <div class="impact-item">
+                        <h4>85%</h4>
+                        <p>Reducción en errores de pago</p>
+                    </div>
+                    <div class="impact-item">
+                        <h4>90%</h4>
+                        <p>Retención de usuarios activos</p>
+                    </div>
+                    <div class="impact-item">
+                        <h4>4.8/5</h4>
+                        <p>Satisfacción del usuario</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-value">12 h</span>
+                    <div class="kpi-label">Horas Ahorradas por Semana</div>
+                    <div class="kpi-description">Los organizadores pasaron de dedicar 20 horas semanales a tareas
+                        administrativas a solo 8 horas.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">89%</span>
+                    <div class="kpi-label">Más Rápido en Contratos</div>
+                    <div class="kpi-description">La generación de contratos se redujo de 45 minutos a solo 5 minutos con
+                        plantillas automatizadas.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">60%</span>
+                    <div class="kpi-label">Menos Morosidad</div>
+                    <div class="kpi-description">Los pagos pendientes se redujeron del 50% al 20% gracias al seguimiento
+                        del sistema.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">40%</span>
+                    <div class="kpi-label">Cobranza Más Rápida</div>
+                    <div class="kpi-description">La recaudación de pagos se optimizó gracias a la tabla centralizada de
+                        pagos.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">82/100</span>
+                    <div class="kpi-label">Puntuación SUS Escala de Usabilidad del sistema </div>
+                    <div class="kpi-description">Efectividad, Eficiencia y Satisfacción del usuario</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">72</span>
+                    <div class="kpi-label">Net Promoter Score (NPS)</div>
+                    <div class="kpi-description">Los usuarios satisfechos recomiendan activamente la plataforma a otros
+                        organizadores.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">3×</span>
+                    <div class="kpi-label">Más Eventos por Usuario</div>
+                    <div class="kpi-description">Los usuarios ahora manejan 3 veces más eventos mensuales gracias a la
+                        automatización.</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">92%</span>
+                    <div class="kpi-label">Tasa de Éxito en Tareas</div>
+                    <div class="kpi-description">El 92% completó la creación de un evento sin asistencia y el 88% logro
+                        dar de alta
+                        servicios adicionales.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAKEAWAYS -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Aprendizajes</h2>
+                <p class="section-subtitle">Lecciones aprendidas a lo largo del proyecto</p>
+            </div>
+
+            <div class="takeaway-grid">
+                <div class="takeaway-card">
+                    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.6rem">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg> Comunicación</h3>
+                    <p>Mantener a todos los stakeholders alineados fue crucial. Las reuniones semanales de
+                        sincronización y la retroalimentación constante y clara de decisiones de diseño evitaron
+                        retrabajos.</p>
+                </div>
+
+                <div class="takeaway-card">
+                    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.6rem">
+                            <line x1="18" y1="20" x2="18" y2="10" />
+                            <line x1="12" y1="20" x2="12" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="14" />
+                        </svg> Decisiones Basadas en Datos</h3>
+                    <p>Las métricas cuantitativas combinadas con feedback cualitativo permitieron priorizar
+                        funcionalidades con base en impacto real, no en suposiciones.</p>
+                </div>
+                <div class="takeaway-card">
+                    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align:middle;margin-right:.6rem">
+                            <polyline points="23 4 23 10 17 10" />
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                        </svg> Iteración Continua</h3>
+                    <p>El MVP no es perfecto, y está bien. Lanzar temprano, medir, aprender e iterar nos permitió
+                        mejorar basándonos en el uso real en lugar de esperar a tener un producto "perfecto".</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <h2>¿Quieres saber más?</h2>
+            <p>Estoy disponible para discutir este proyecto y oportunidades de diseño</p>
+            <a href="https://wa.me/525520389629?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20tu%20trabajo"
+                class="cta-button" target="_blank" rel="noopener">Contáctame</a>
+            <br>
+            <a href="../index.html#proyectos" class="back-link">← Volver al Portafolio</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
